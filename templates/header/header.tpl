@@ -1,5 +1,3 @@
-<div>header</div>
-
 <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -11,20 +9,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#./busqueda.php">Inicio</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">Estadisticas</a>
                     </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
+                    {if isset($usuario)}
+                        <li>
+                            <a href="#">Mantenimiento</a>
+                        </li>
+                        <li>
+                            <a href="#">Preguntas</a>
+                        </li>
+                        <li class="pull-right">
+                            <a href="#">Logout</a>
+                        </li>
+                    {else}
+                        <li class="pull-right">
+                            <a href="./login.php">Login</a>
+                        </li>
+                    {/if}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
