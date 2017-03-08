@@ -25,7 +25,7 @@
                             <a href="#">Preguntas</a>
                         </li>
                         <li class="pull-right">
-                            <a href="#">Logout</a>
+                            <a href="./doLogout.php">Logout</a>
                         </li>
                     {else}
                         <li class="pull-right">

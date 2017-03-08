@@ -12,7 +12,7 @@ try {
     }
 
     if (isset($_SESSION["usuario"])) {
-        $miSmarty->assign("usuario", $_SESSION["usuario"]);
+        $mySmarty->assign("usuario", $_SESSION["usuario"]);
     }
     
     $mySmarty->display('index.tpl');

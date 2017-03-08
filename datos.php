@@ -3,7 +3,7 @@
 require_once 'class.Conexion.BD.php';
 
 function conectar() {
-    $cn = new ConexionBD('mysql', 'localhost', 'ventas', 'root', 'root');
+    $cn = new ConexionBD('mysql', 'localhost', 'inmobiliaria', 'root', 'root');
 
     $cn->conectar();
     return $cn;
@@ -11,7 +11,7 @@ function conectar() {
 
 function get_conexion() {
     return new PDO(
-            'mysql:host=localhost;dbname=Banco', 'root', 'root'
+            'mysql:host=localhost;dbname=inmobiliaria', 'root', 'root'
     );
 }
 
@@ -21,7 +21,7 @@ function login($usuario, $clave, $recordar) {
     $consulta = get_conexion()->prepare(
             "SELECT * "
             . "FROM usuarios u "
-            . "WHERE u.usuario = :usuario AND u.password = :clave "
+            . "WHERE u.usuario = :usuario AND u.clave = :clave "
     );
     
     $consulta->bindParam('usuario', $usuario, PDO::PARAM_STR);
@@ -59,4 +59,10 @@ function login_cookie($id_usuario) {
     } else {
         return FALSE;
     }
+}
+
+function logout() {
+    session_start();
+    setcookie("id_usuario",-1, time() + 3600);
+    unset($_SESSION["usuario"]);
 }

@@ -11,6 +11,7 @@
         <link href="./css/signin.css" rel="stylesheet">
     </head>
     <body>
+      {include file = 'header/header.tpl'}
       <div class="container">
         <form class="form-signin" method="POST" action="./doLogin.php">
           <h2 class="form-signin-heading">Ingrese sus credenciales</h2>
