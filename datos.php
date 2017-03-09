@@ -3,7 +3,7 @@
 require_once 'class.Conexion.BD.php';
 
 function conectar() {
-    $cn = new ConexionBD('mysql', 'localhost', 'ventas', 'root', 'root');
+    $cn = new ConexionBD('mysql', 'localhost', 'inmobiliaria', 'root', 'root');
 
     $cn->conectar();
     return $cn;
@@ -11,7 +11,7 @@ function conectar() {
 
 function get_conexion() {
     return new PDO(
-            'mysql:host=localhost;dbname=Banco', 'root', 'root'
+            'mysql:host=localhost;dbname=inmobiliaria', 'root', 'root'
     );
 }
 
@@ -21,14 +21,14 @@ function login($usuario, $clave, $recordar) {
     $consulta = get_conexion()->prepare(
             "SELECT * "
             . "FROM usuarios u "
-            . "WHERE u.usuario = :usuario AND u.password = :clave "
+            . "WHERE u.usuario = :usuario AND u.clave = :clave "
     );
     
     $consulta->bindParam('usuario', $usuario, PDO::PARAM_STR);
     $consulta->bindParam('clave', $clave, PDO::PARAM_STR);
 
     $consulta->execute();
-    $resultado = $consulta->fetch();
+    $resultado = $consulta->fetchAll();
 
     if ($resultado) {
         $_SESSION["usuario"] = $resultado;
@@ -59,4 +59,27 @@ function login_cookie($id_usuario) {
     } else {
         return FALSE;
     }
+}
+
+function fetchHouses($page, $perPage = 10) {
+    
+    $from = $page - 1;
+    $to = ($page) * $perPage;
+    
+    $cn = conectar();    
+    
+    $cn->consulta("
+            SELECT * FROM propiedades
+            WHERE id BETWEEN :from AND :to
+        ", array(
+        array('from', $from, 'int'),
+        array('to', $to, 'int')
+    ));
+    $productos = $cn->restantesRegistros();
+
+    $cn->desconectar();
+
+    return array( 
+        'datos' => $productos
+    );
 }
