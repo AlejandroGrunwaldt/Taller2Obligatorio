@@ -8,7 +8,7 @@
     <meta name="author" content="Alejandro Gruwaldt & Juan B Heber">
     <title>A ORT Vamos</title>
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/4-col-portfolio.css" rel="stylesheet">
 </head>
@@ -19,8 +19,8 @@
     <!-- /.container -->
     {include file = 'footer/footer.tpl'}
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="javascript/plugins/node_modules/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="javascript/plugins/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
