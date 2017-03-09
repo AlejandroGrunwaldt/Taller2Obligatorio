@@ -1,5 +1,5 @@
 <div class="row">
-    {*{foreach from = $productos item=prod}
-        {include file = 'content/itemCell.tpl'prod=$prod}
-    {/foreach}*}
+    {foreach from = $houses item=house}
+        {include file = 'content/itemCell.tpl'}
+    {/foreach}
 </div>

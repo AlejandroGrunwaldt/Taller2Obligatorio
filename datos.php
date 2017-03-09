@@ -28,7 +28,7 @@ function login($usuario, $clave, $recordar) {
     $consulta->bindParam('clave', $clave, PDO::PARAM_STR);
 
     $consulta->execute();
-    $resultado = $consulta->fetch();
+    $resultado = $consulta->fetchAll();
 
     if ($resultado) {
         $_SESSION["usuario"] = $resultado;
@@ -83,4 +83,27 @@ function get_preguntas($sinRespuesta = true) {
     $preguntas = $bd->restantesRegistros();
     $bd->desconectar();
     return $preguntas;
+}
+
+function fetchHouses($page, $perPage = 10) {
+    
+    $from = $page - 1;
+    $to = ($page) * $perPage;
+    
+    $cn = conectar();    
+    
+    $cn->consulta("
+            SELECT * FROM propiedades
+            WHERE id BETWEEN :from AND :to
+        ", array(
+        array('from', $from, 'int'),
+        array('to', $to, 'int')
+    ));
+    $productos = $cn->restantesRegistros();
+
+    $cn->desconectar();
+
+    return array( 
+        'datos' => $productos
+    );
 }
