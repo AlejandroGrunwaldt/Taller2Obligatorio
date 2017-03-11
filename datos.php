@@ -18,7 +18,7 @@ function get_conexion() {
 
 function login($usuario, $clave, $recordar) {
     session_start();
-    
+
     $consulta = get_conexion()->prepare(
             "SELECT * "
             . "FROM usuarios u "
@@ -33,8 +33,8 @@ function login($usuario, $clave, $recordar) {
 
     if ($resultado) {
         $_SESSION["usuario"] = $resultado;
-        if($recordar){
-            setcookie("id_usuario",$resultado['id'], time() + 3600);
+        if ($recordar) {
+            setcookie("id_usuario", $resultado['id'], time() + 3600);
         }
         return TRUE;
     } else {
@@ -60,4 +60,28 @@ function login_cookie($id_usuario) {
     } else {
         return FALSE;
     }
+}
+
+function logout() {
+    session_start();
+    setcookie("id_usuario", -1, time() + 3600);
+    unset($_SESSION["usuario"]);
+}
+
+function get_preguntas($sinRespuesta = true) {
+    $bd = conectar();
+    $sql = "SELECT * "
+            . "FROM preguntas p ";
+            
+    if ($sinRespuesta == true) {
+        $sql = $sql . " WHERE p.respuesta IS null";
+    }
+    
+    $sql = $sql . " ORDER BY p.fecha DESC";
+
+    $bd->consulta($sql);
+
+    $preguntas = $bd->restantesRegistros();
+    $bd->desconectar();
+    return $preguntas;
 }

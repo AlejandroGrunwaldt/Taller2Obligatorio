@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/doLogin.php</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/templates/header/header.tpl</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/templates/content/houseList.tpl</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/datos.php</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/templates/content/content.tpl</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/templates/content/itemCell.tpl</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/smarty.php</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/index.php</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/login.php</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/class.Conexion.BD.php</file>
-            <file>file:/Users/agrunwaldt/Documents/ORT/Taller%202/Taller2Obligatorio/templates/index.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/header/header.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/index.php</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/datos.php</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/preguntas.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/preguntas/pregunta.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/preguntas/contenido.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/preguntas.php</file>
         </group>
     </open-files>
 </project-private>

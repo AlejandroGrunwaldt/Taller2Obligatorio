@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Pagina imobiliaria Taller 2">
     <meta name="author" content="Alejandro Gruwaldt & Juan B Heber">
-    <title>A ORT Vamos</title>
+    <title>A ORT Vamos/ Preguntas</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -15,8 +15,7 @@
 <body>
     {include file = 'header/header.tpl'}
     <!-- Page Content -->
-    {block name=contentBlock}{/block}
-    {include file = 'content/content.tpl'}
+    {include file = 'preguntas/contenido.tpl'}
     <!-- /.container -->
     {include file = 'footer/footer.tpl'}
     <!-- jQuery -->
