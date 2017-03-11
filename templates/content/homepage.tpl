@@ -1,3 +1,6 @@
+{extends file ='layout.tpl'}
+
+{block name = contentBlock}
 <div id="content">
     <div class="row">
         <div class="col-lg-12">
@@ -6,9 +9,11 @@
             </h1>
         </div>
     </div>
-    <div id="filters">Filters</div>
+    <div id="filters">
+        {include file = 'content/filters.tpl'}
+    </div>
     <div id="houseListContainter">
-        <h1>Houses</h1>
+        <h1>Casas</h1>
             {include file = 'content/houseList.tpl'}
     </div>
     <!-- Pagination -->
@@ -18,7 +23,7 @@
                 <li>
                     <a href="#">&laquo;</a>
                 </li>
-                {for $i=1 to $pages max = 10}
+                {for $i=1 to $paginas max = 10}
                     <li>
                     <a href="./index.php?page={$i}">{$i}</a>
                     </li>
@@ -30,3 +35,4 @@
         </div>
     </div>
 </div>
+{/block}

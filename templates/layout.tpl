@@ -16,7 +16,7 @@
     {include file = 'header/header.tpl'}
     <!-- Page Content -->
     {block name=contentBlock}{/block}
-    {include file = 'content/content.tpl'}
+    {*{include file = 'content/content.tpl'}*}
     <!-- /.container -->
     {include file = 'footer/footer.tpl'}
     <!-- jQuery -->

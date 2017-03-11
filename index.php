@@ -7,8 +7,16 @@ require_once 'datos.php';
 
 try {
     session_start();
-    $houses = fetchHouses(2);
-    $mySmarty->assign('houses', $houses[datos]);
+    if (isset($_GET['page'])) {
+        $pagina = $_GET['page'];
+        $casas = getCasas($pagina);
+    }else{
+        $casas = getCasas(1);
+    }
+    
+    $mySmarty->assign('casas', $casas[casas]);
+    $mySmarty->assign('paginas', $casas[total]);
+    
     if (isset($_COOKIE["id_usuario"])) {
         login_cookie($_COOKIE["id_usuario"]);
     }
@@ -16,10 +24,10 @@ try {
     if (isset($_SESSION["usuario"])) {
         $miSmarty->assign("usuario", $_SESSION["usuario"]);
     }
-    
-    $mySmarty->display('index.tpl');
-    
-    
+
+    $mySmarty->display('./content/homepage.tpl');
+
+
 } catch (Exception $ex) {
     echo $ex->getMessage();
 }
