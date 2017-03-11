@@ -12,10 +12,10 @@ function getCasas($pagina, $resultadosPorPagina = 10) {
 
     $cn->consulta("
             SELECT * FROM propiedades
-            WHERE id BETWEEN :from AND :to
+            LIMIT :from, :to
         ", array(
         array('from', $desde, 'int'),
-        array('to', $hasta, 'int')
+        array('to', $resultadosPorPagina, 'int')
     ));
     $casas = array();
     $a = $cn->cantidadRegistros();
