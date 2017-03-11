@@ -1,6 +1,7 @@
 <?php
 
 require_once 'class.Conexion.BD.php';
+require_once 'housesBD.php';
 
 function conectar() {
     $cn = new ConexionBD('mysql', 'localhost', 'inmobiliaria', 'root', 'root');
@@ -83,27 +84,4 @@ function get_preguntas($sinRespuesta = true) {
     $preguntas = $bd->restantesRegistros();
     $bd->desconectar();
     return $preguntas;
-}
-
-function fetchHouses($page, $perPage = 10) {
-    
-    $from = $page - 1;
-    $to = ($page) * $perPage;
-    
-    $cn = conectar();    
-    
-    $cn->consulta("
-            SELECT * FROM propiedades
-            WHERE id BETWEEN :from AND :to
-        ", array(
-        array('from', $from, 'int'),
-        array('to', $to, 'int')
-    ));
-    $productos = $cn->restantesRegistros();
-
-    $cn->desconectar();
-
-    return array( 
-        'datos' => $productos
-    );
 }
