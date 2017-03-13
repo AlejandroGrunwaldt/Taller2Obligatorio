@@ -1,9 +1,20 @@
 <?php
 
 require_once('datos.php');
-
+try{
+    if (isset($_POST['pregunta']) && !empty($_POST['pregunta'])) {
+    $pregunta = $_POST['pregunta'];
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = $_POST['id'];
+        guardarPregunta($id, $pregunta);
+        $ret = array('OK' => 'La pregunta se registro correctamente');
+        echo json_encode($ret);
+    }
+}
+}catch (Exception $ex) {
+    echo $ex->getMessage();
+}
 function getCasas($pagina, $resultadosPorPagina = 10) {
-
 
     $hasta = ($pagina) * $resultadosPorPagina;
     $desde = $hasta - ($resultadosPorPagina - 1);
@@ -25,7 +36,7 @@ function getCasas($pagina, $resultadosPorPagina = 10) {
     }
 
     $cn->consulta("
-            SELECT count(*) as total 
+            SELECT count(*) as total
             FROM propiedades
         ");
 
@@ -80,19 +91,17 @@ function getPreguntas($id = 0) {
     );
 }
 
-function crearPregunta($id = 0, $pregunta) {
+function guardarPregunta($id = 0, $pregunta) {
     $cn = conectar();
     $date = date('Y-m-d H:i:s');
     $cn->consulta("
-           INSERT INTO `preguntas` 
-           (`id`, `id_propiedad`, `fecha`, `texto`, `respuesta`, `fecha_respuesta`) 
+           INSERT INTO `preguntas`
+           (`id`, `id_propiedad`, `fecha`, `texto`, `respuesta`, `fecha_respuesta`)
            VALUES (NULL, :id, :date, :pregunta, NULL, NULL);
        ", array(
         array('id', $id, 'int'),
         array('pregunta', $pregunta, 'string'),
-        array('date', $date, 'string')   
+        array('date', $date, 'string')
     ));
-    return array(
-        'preguntas' => $preguntas
-    );
 }
+

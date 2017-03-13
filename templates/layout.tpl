@@ -11,6 +11,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/4-col-portfolio.css" rel="stylesheet">
+    <link href="css/houseCell.css" rel="stylesheet">
 </head>
 <body>
     {include file = 'header/header.tpl'}
@@ -20,8 +21,9 @@
     <!-- /.container -->
     {include file = 'footer/footer.tpl'}
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="js/plugins/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="js/content/housePage.js"></script>
 </body>
 </html>
