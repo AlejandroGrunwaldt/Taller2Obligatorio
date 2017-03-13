@@ -3,8 +3,6 @@
 require_once('datos.php');
 
 function getCasas($pagina, $resultadosPorPagina = 10) {
-
-
     $hasta = ($pagina) * $resultadosPorPagina;
     $desde = $hasta - ($resultadosPorPagina - 1);
 

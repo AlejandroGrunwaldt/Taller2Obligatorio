@@ -9,7 +9,7 @@
             </h1>
         </div>
     </div>
-    <div id="filters">
+    <div id="filters" class="row">
         {include file = 'content/filters.tpl'}
     </div>
     <div id="houseListContainter">
@@ -35,4 +35,8 @@
         </div>
     </div>
 </div>
+{/block}
+
+{block name = scripts}
+    <script type="text/javascript" src="./js/homepage.js"></script>
 {/block}

@@ -85,3 +85,35 @@ function get_preguntas($sinRespuesta = true) {
     $bd->desconectar();
     return $preguntas;
 }
+
+function obtener_ciudades(){
+     $bd = conectar();
+    $sql = "SELECT * "
+            . "FROM ciudades c ";
+            
+
+    $bd->consulta($sql);
+
+    $ciudades = $bd->restantesRegistros();
+    $bd->desconectar();
+    return $ciudades;
+}
+
+function obtener_barrios($ciudadId){
+    $cn = conectar();
+    
+    $cn->consulta("SELECT * FROM barrios WHERE ciudad_id= :ciudad_id", array(
+        array('ciudad_id', $ciudadId, 'int')
+    ));
+    
+    $barrios = array();
+    $a = $cn->cantidadRegistros();
+    for ($i = 0; $i < $a; $i++) {
+        $barrio = $cn->siguienteRegistro();
+        array_push($barrios, $barrio);
+    }
+
+    $cn->desconectar();
+
+    return $barrios;
+}
