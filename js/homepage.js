@@ -31,7 +31,13 @@ homePage.prototype.init = function () {
 
     $(opt.DOM.selectCiudades).change(function () {
         var ciudadId = $(this).val();
-        self.cargarBarrios(ciudadId);
+        if (ciudadId > 0) {
+            $(opt.DOM.selectBarrios).prop("disabled", false);
+            self.cargarBarrios(ciudadId);
+        } else {
+            $(opt.DOM.selectBarrios).html('<option value="0">Seleccione un barrio</option>');
+            $(opt.DOM.selectBarrios).prop("disabled", true);
+        }
     });
 
     self.cargarCiudades();
@@ -58,7 +64,7 @@ homePage.prototype.cargarCiudades = function () {
 
 homePage.prototype.cargarBarrios = function (ciudadId) {
     var self = this,
-        opt = self.options;
+            opt = self.options;
 
     if (ciudadId !== undefined || ciudadId > 0) {
         $.ajax({

@@ -1,6 +1,16 @@
-<div class="col-md-3 portfolio-item">
-    <a href="./housePage.php?id={$casa.id}">
-        <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-    </a>
-    <p> Titulo:{$casa.titulo} </p>
+<div class="col-lg-4">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a href="./housePage.php?id={$casa.id}" target="_blank">
+                {$casa.titulo}
+            </a>
+        </div>
+        <div class="panel-body">
+            <p>{$casa.texto|truncate:150:"...":true}</p>
+            <p><strong>Barrio: </strong>{$casa.nombre}</p>
+            <p><strong>Habitaciones: </strong>{$casa.habitaciones}</p>
+            <p><strong>Baños: </strong>{$casa.banios}</p>
+            <p><strong>Precio: </strong>{$casa.precio}</p>
+        </div>
+    </div>
 </div>

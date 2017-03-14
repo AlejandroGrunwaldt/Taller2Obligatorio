@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/housePage.php</file>
             <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/content/housePage.tpl</file>
             <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/js/homepage.js</file>
-            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/login.tpl</file>
-            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/index.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/content/houseCell.tpl</file>
             <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/content/filters.tpl</file>
             <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/index.php</file>
-            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/content/homepage.tpl</file>
-            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/templates/layout.tpl</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/ciudades_Ajax.php</file>
+            <file>file:/Users/juanbautistaheber/Documents/Taller2Obligatorio/housesBD.php</file>
         </group>
     </open-files>
 </project-private>

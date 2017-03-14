@@ -10,6 +10,7 @@ function getCasas($pagina, $resultadosPorPagina = 10) {
 
     $cn->consulta("
             SELECT * FROM propiedades
+            INNER JOIN barrios ON propiedades.barrio_id = barrios.id
             LIMIT :from, :to
         ", array(
         array('from', $desde, 'int'),

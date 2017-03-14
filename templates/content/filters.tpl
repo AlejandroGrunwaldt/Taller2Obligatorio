@@ -37,7 +37,7 @@
     <div class="col-lg-2">
         <div class="form-group">
             <label>Barrio</label>
-            <select class="form-control" id="barrios">
+            <select class="form-control" id="barrios" disabled="true">
                 <option value="N" selected="true">Seleccione un barrio</option>
             </select>
         </div>
