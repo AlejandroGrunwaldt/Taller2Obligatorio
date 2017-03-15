@@ -6,15 +6,18 @@ function homePage() {
             avanzada: "#busqueda-avanzada",
             selectCiudades: "#ciudad",
             filtrosAvanzados: "#filtros-avanzados",
-            selectBarrios: "#barrios"
+            selectBarrios: "#barrios",
+            filterForm: "#filter-form",
+            pagination: ".pagination"
         },
         URL: {
             ciudades: 'ciudades_Ajax.php',
-            barrios: 'barrios_Ajax.php'
-        }
+            barrios: 'barrios_Ajax.php',
+            busqueda: 'buscarCasas.php',
+        },
+        currentPage: 1
     };
-}
-;
+};
 
 homePage.prototype.init = function () {
     var self = this,
@@ -38,6 +41,11 @@ homePage.prototype.init = function () {
             $(opt.DOM.selectBarrios).html('<option value="0">Seleccione un barrio</option>');
             $(opt.DOM.selectBarrios).prop("disabled", true);
         }
+    });
+
+    $(opt.DOM.filterForm).submit(function (e) {
+        e.preventDefault();
+        self.buscarCasas();
     });
 
     self.cargarCiudades();
@@ -83,6 +91,32 @@ homePage.prototype.cargarBarrios = function (ciudadId) {
             alert(JSON.stringify(err));
         });
     }
+};
+
+homePage.prototype.buscarCasas = function (){
+    var self = this,
+        opt = self.options,
+        $form = $(opt.DOM.filterForm),
+        $inputs = $form.find("input, select, button, textarea"),
+        serializedData = $form.serialize().concat("&pagina=" + opt.currentPage);
+
+        $inputs.prop("disabled", true);
+
+        var request = $.ajax({
+            url: opt.URL.busqueda,
+            type: "post",
+            data: serializedData
+        }).done(function (response, textStatus, jqXHR){
+            console.log("Hooray, it worked!");
+            console.log(response);
+        }).fail(function (jqXHR, textStatus, errorThrown){
+            console.error(
+                "The following error occurred: "+
+                textStatus, errorThrown
+            );
+        }).always(function () {
+            $inputs.prop("disabled", false);
+        });
 };
 
 $(function () {

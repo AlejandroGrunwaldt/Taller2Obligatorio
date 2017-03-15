@@ -24,8 +24,8 @@
                     <a href="#">&laquo;</a>
                 </li>
                 {for $i=1 to $paginas max = 10}
-                    <li>
-                    <a href="./index.php?page={$i}">{$i}</a>
+                    <li {if $i == 1}class="active"{/if}>
+                        <a href="./index.php?page={$i}">{$i}</a>
                     </li>
                 {/for}
                 <li>
