@@ -34,10 +34,8 @@
         {/if}
         <div id='entrarPregunta'>
             <h4>Entrar preguntas</h4>
-            <form action="/action_page.php">
-                Pregunta: <input type="text" name="pregunta"><br>
-                <input type="submit" value="Submit">
-            </form>
+            Pregunta: <input id='pregunta' type="text" name="pregunta"><br>
+            <input type='button' id='submit' value="Submit">
         </div>
         
     </div>
