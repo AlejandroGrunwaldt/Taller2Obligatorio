@@ -93,7 +93,7 @@ function getPreguntas($id = 0) {
     );
 }
 
-function guardarPregunta($pregunta, $id = 0) {
+function guardarPregunta($id = 0, $pregunta) {
     $cn = conectar();
     $date = date('Y-m-d H:i:s');
     $cn->consulta("

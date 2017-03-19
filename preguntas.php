@@ -34,11 +34,12 @@ function guardarRespuesta($id = 0, $respuesta) {
     $cn = conectar();
     $date = date('Y-m-d H:i:s');
     $cn->consulta("
-           INSERT INTO `preguntas`
-           (`respuesta`, `fecha_respuesta`)
-           VALUES (:respuesta, :fecha_respuesta);
+           UPDATE `preguntas`
+           SET `respuesta` = :respuesta, `fecha_respuesta` = :fecha_respuesta
+           WHERE id = :id;
        ", array(
         array('respuesta', $respuesta, 'string'),
-        array('fecha_respuesta', $date, 'string')
+        array('fecha_respuesta', $date, 'string'),
+        array('id', $id, 'string')
     ));
 }

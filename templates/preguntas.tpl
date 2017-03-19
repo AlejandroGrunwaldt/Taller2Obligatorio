@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Pagina imobiliaria Taller 2">
-    <meta name="author" content="Alejandro Gruwaldt & Juan B Heber">
-    <title>A ORT Vamos/ Preguntas</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/4-col-portfolio.css" rel="stylesheet">
-</head>
-<body>
-    {include file = 'header/header.tpl'}
-    <!-- Page Content -->
-    {include file = 'preguntas/contenido.tpl'}
-    <!-- /.container -->
-    {include file = 'footer/footer.tpl'}
-    <!-- jQuery -->
-    <script src="javascript/plugins/node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="javascript/plugins/bootstrap/bootstrap.min.js"></script>
-</body>
-</html>
+{extends file ='layout.tpl'}
+
+{block name = contentBlock}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Preguntas</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row col-lg-12">
+        {foreach from = $preguntas item = pregunta}
+            {include file = 'preguntas/pregunta.tpl'}
+        {/foreach}
+    </div>
+{/block}
+{block name = scripts}
+    <script type="text/javascript" src="./js/content/preguntas.js"></script>
+{/block}
