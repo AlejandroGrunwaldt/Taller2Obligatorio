@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#submit').click(function () {
+    $('#guardarPregunta').click(function () {
         crearPregunta();
     });
 });

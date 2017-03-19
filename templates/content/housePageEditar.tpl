@@ -1,14 +1,14 @@
 {extends file ='layout.tpl'}
 
 {block name = contentBlock}
-<form class="" action="housesBD.php" method="post">
+<form class="" action="housesBD.php" method="post" id="editForm">
     <div id='houseTemplate'>
         <div id='title'>
             <h1>{$casa.titulo}</h1>
         </div>
         <div id='description'>
             <h2>Descripción</h2>
-            <input type="text" name="description" value="{$casa.texto}">
+            <textarea style="width: 700px" form="editForm" rows="7" name="description" value="">{$casa.texto}</textarea>
             <br>
             <h2>Precio</h2>
             <input type="text" name="description" value="{$casa.precio}">
@@ -24,5 +24,6 @@
             <br>
         </div>
     </div>
+    <input type="submit" value="Guardar">
 </form>
 {/block}
