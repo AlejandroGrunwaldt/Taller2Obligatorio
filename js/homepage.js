@@ -8,7 +8,8 @@ function homePage() {
             filtrosAvanzados: "#filtros-avanzados",
             selectBarrios: "#barrios",
             filterForm: "#filter-form",
-            pagination: ".pagination"
+            pagination: ".pagination",
+            casasContainer: "#casas"
         },
         URL: {
             ciudades: 'ciudades_Ajax.php',
@@ -45,6 +46,14 @@ homePage.prototype.init = function () {
 
     $(opt.DOM.filterForm).submit(function (e) {
         e.preventDefault();
+        self.buscarCasas();
+    });
+    
+    $(opt.DOM.pagination + " li").click(function(e){
+        e.preventDefault();
+        $(self.options.DOM.pagination + " li").removeClass("active")
+        opt.currentPage = $(this).val();
+        $(this).addClass("active");
         self.buscarCasas();
     });
 
@@ -107,8 +116,7 @@ homePage.prototype.buscarCasas = function (){
             type: "post",
             data: serializedData
         }).done(function (response, textStatus, jqXHR){
-            console.log("Hooray, it worked!");
-            console.log(response);
+            $(opt.DOM.casasContainer).html(response);
         }).fail(function (jqXHR, textStatus, errorThrown){
             console.error(
                 "The following error occurred: "+

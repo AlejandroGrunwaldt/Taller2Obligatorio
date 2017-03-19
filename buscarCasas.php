@@ -1,6 +1,9 @@
 <?php
 
-require_once 'datos.php';
+require_once './datos.php';
+require_once './smarty.php';
+
+session_start();
 
 $operacion = isset($_POST['operacion']) ? $_POST['operacion'] : null;
 $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : null;
@@ -13,4 +16,11 @@ $hasta = isset($_POST['hasta']) ? $_POST['hasta'] : null;
 $garaje = isset($_POST['garaje']) ? $_POST['garaje'] : null;
 $pagina = isset($_POST['pagina']) ? $_POST['pagina'] : null;
 
-echo json_encode(array('datos' => $operacion));
+$casas = buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, 
+        $barrio, $habitaciones, $desde, $hasta, $garaje);
+
+$mySmarty->assign('casas', $casas[casas]);
+$mySmarty->assign('paginas', $casas[total]);
+
+$mySmarty->display('./content/houseList.tpl');
+

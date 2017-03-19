@@ -1,19 +1,20 @@
 <?php
 
 require_once('datos.php');
-try{
+try {
     if (isset($_POST['pregunta']) && !empty($_POST['pregunta'])) {
-    $pregunta = $_POST['pregunta'];
-    if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $id = $_POST['id'];
-        guardarPregunta($id, $pregunta);
-        $ret = array('OK' => 'La pregunta se registro correctamente');
-        echo json_encode($ret);
+        $pregunta = $_POST['pregunta'];
+        if (isset($_POST['id']) && !empty($_POST['id'])) {
+            $id = $_POST['id'];
+            guardarPregunta($id, $pregunta);
+            $ret = array('OK' => 'La pregunta se registro correctamente');
+            echo json_encode($ret);
+        }
     }
-}
-}catch (Exception $ex) {
+} catch (Exception $ex) {
     echo $ex->getMessage();
 }
+
 function getCasas($pagina, $resultadosPorPagina = 10) {
 
     $hasta = ($pagina) * $resultadosPorPagina;
@@ -106,3 +107,61 @@ function guardarPregunta($pregunta, $id = 0) {
     ));
 }
 
+function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje) {
+    $resultadosPorPagina = 10;
+    $hasta = ($pagina) * $resultadosPorPagina;
+    $desde = $hasta - ($resultadosPorPagina - 1);
+    $cn = conectar();
+
+    $sql = "SELECT * FROM propiedades p, barrios b
+            WHERE p.operacion = :op AND b.id = p.barrio_id AND b.ciudad_id = :idCiudad";
+
+    $params = array(
+        array('op', $operacion, 'string'),
+        array('idCiudad', $ciudad, 'int'),
+        array('from', $desde, 'int'),
+        array('to', $resultadosPorPagina, 'int')
+    );
+
+    if ($avanzada == TRUE) {
+        if ($propiedad != NULL){
+            $sql = $sql . " AND p.tipo = :tipoProp";
+            array_push($params, array('tipoProp', $propiedad, 'string'));
+        }
+        if ($barrio != NULL){
+            $sql = $sql . " AND p.barrio_id = :idBarrio";
+            array_push($params, array('idBarrio', $barrio, 'int'));
+        }
+        if ($habitaciones != NULL){
+            $sql = $sql . " AND p.habitaciones = :hab";
+            array_push($params, array('hab', $habitaciones, 'int'));
+        }
+        if ($pDesde != NULL && $pHasta != NULL){
+            $sql = $sql . " AND (p.precio BETWEEN :pDesde AND :pHasta)";
+            array_push($params, array('pDesde', $pDesde, 'int'), array('pHasta', $pHasta, 'int'));
+        }
+        if ($garaje != NULL){
+            $sql = $sql . " AND p.garaje = :garaje";
+            array_push($params, array('garaje', $garaje, 'int'));
+        }
+    }
+    $sql = $sql . " LIMIT :from, :to";
+    $cn->consulta($sql, $params);
+    $casas = array();
+    $a = $cn->cantidadRegistros();
+    for ($i = 0; $i < $a; $i++) {
+        $casa = $cn->siguienteRegistro();
+        array_push($casas, $casa);
+    }
+    $cn->consulta("
+            SELECT count(*) as total
+            FROM propiedades
+        ");
+    $total = $cn->siguienteRegistro()['total'] / $resultadosPorPagina;
+    $cn->desconectar();
+
+    return array(
+        'casas' => $casas,
+        'total' => ceil($total)
+    );
+}

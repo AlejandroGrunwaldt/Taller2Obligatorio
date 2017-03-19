@@ -20,15 +20,15 @@
     <div class="row text-center">
         <div class="col-lg-12">
             <ul class="pagination">
-                <li>
+                <li value="0" id="back">
                     <a href="#">&laquo;</a>
                 </li>
                 {for $i=1 to $paginas max = 10}
-                    <li {if $i == 1}class="active"{/if}>
-                        <a href="./index.php?page={$i}">{$i}</a>
+                    <li {if $i == 1}class="active"{/if} value="{$i}">
+                        <a href="#">{$i}</a>
                     </li>
                 {/for}
-                <li>
+                <li value="0" id="foward">
                     <a href="#">&raquo;</a>
                 </li>
             </ul>
