@@ -40,6 +40,9 @@
 
         </div>
 </div>
+            <div class="row">
+                <a href="./pdfCasa.php?id={$casa.id}" class="btn btn-success">Descargar</a>
+            </div>
 {/block}
 {block name = scripts}
     <script type="text/javascript" src="./js/content/housePage.js"></script>
