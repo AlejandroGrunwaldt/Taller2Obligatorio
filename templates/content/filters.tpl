@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label>Tipo de Operacion</label>
                 <select class="form-control" id="tipo-operacion" name="operacion">
-                    <option value="N" selected="true"> - </option>
+                    <option value="" selected="true"> - </option>
                     <option value="V">Venta</option>
                     <option value="A">Alquiler</option>
                 </select>
@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label>Ciudad</label>
                 <select class="form-control" id="ciudad" name="ciudad">
-                    <option value="N" selected="true">...</option>
+                    <option value="" selected="true">...</option>
                 </select>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label>Tipo de Propiedad</label>
                 <select class="form-control" id="tipo-propiedad" name="propiedad">
-                    <option value="N" selected="true"> - </option>
+                    <option value="" selected="true"> - </option>
                     <option value="C">Casa</option>
                     <option value="A">Apartamento</option>
                 </select>
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label>Barrio</label>
                 <select class="form-control" id="barrios" disabled="true" name="barrio">
-                    <option value="N" selected="true">Seleccione un barrio</option>
+                    <option value="" selected="true">Seleccione un barrio</option>
                 </select>
             </div>
         </div>
@@ -72,9 +72,31 @@
             <div class="form-group">
                 <label>Garaje</label>
                 <select class="form-control" id="barrios" name="garaje">
-                    <option value="N" selected="true">Indistinto</option>
+                    <option value="" selected="true">Indistinto</option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="col-lg-5">
+            <div class="form-group">
+                <label>Ordenar Por: </label>
+                <select class="form-control" id="tipo-operacion" name="orden">
+                    <option value="" selected="true"> - </option>
+                    <option value="precio">Precio</option>
+                    <option value="mts2">Metros cuadrados</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="form-group">
+                <label>Ascendente / Descendente</label>
+                <select class="form-control" id="ciudad" name="forma">
+                    <option value="" selected="true"> - </option>
+                    <option value="ASC">Ascendente</option>
+                    <option value="DESC">Descendente</option>
                 </select>
             </div>
         </div>

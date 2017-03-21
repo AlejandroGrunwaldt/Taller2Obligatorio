@@ -107,56 +107,63 @@ function guardarPregunta($id = 0, $pregunta) {
     ));
 }
 
-function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje) {
+function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
     $resultadosPorPagina = 10;
     $hasta = ($pagina) * $resultadosPorPagina;
     $desde = $hasta - ($resultadosPorPagina - 1);
     $cn = conectar();
+    
+    $casasSql = "SELECT * ";
+    $countSql = "SELECT count(*) as total ";
 
-    $sql = "SELECT * FROM propiedades p, barrios b
+    $sql = "FROM propiedades p, barrios b
             WHERE p.operacion = :op AND b.id = p.barrio_id AND b.ciudad_id = :idCiudad";
 
     $params = array(
         array('op', $operacion, 'string'),
-        array('idCiudad', $ciudad, 'int'),
-        array('from', $desde, 'int'),
-        array('to', $resultadosPorPagina, 'int')
+        array('idCiudad', $ciudad, 'int')
     );
 
     if ($avanzada == TRUE) {
-        if ($propiedad != NULL){
+        if ($propiedad != NULL) {
             $sql = $sql . " AND p.tipo = :tipoProp";
             array_push($params, array('tipoProp', $propiedad, 'string'));
         }
-        if ($barrio != NULL){
+        if ($barrio != NULL) {
             $sql = $sql . " AND p.barrio_id = :idBarrio";
             array_push($params, array('idBarrio', $barrio, 'int'));
         }
-        if ($habitaciones != NULL){
+        if ($habitaciones != NULL) {
             $sql = $sql . " AND p.habitaciones = :hab";
             array_push($params, array('hab', $habitaciones, 'int'));
         }
-        if ($pDesde != NULL && $pHasta != NULL){
+        if ($pDesde != NULL && $pHasta != NULL) {
             $sql = $sql . " AND (p.precio BETWEEN :pDesde AND :pHasta)";
             array_push($params, array('pDesde', $pDesde, 'int'), array('pHasta', $pHasta, 'int'));
         }
-        if ($garaje != NULL){
+        if ($garaje != NULL) {
             $sql = $sql . " AND p.garaje = :garaje";
             array_push($params, array('garaje', $garaje, 'int'));
         }
     }
-    $sql = $sql . " LIMIT :from, :to";
-    $cn->consulta($sql, $params);
+
+    if ($orden != NULL) {
+        $sql = $sql . " ORDER BY " . $orden. " " . ($forma === NULL ? "ASC" : $forma);
+    }
+
+    $casasSql = $casasSql . $sql . " LIMIT :from, :to";
+    $paramsCasas = $params;
+    array_push($paramsCasas, array('from', $desde, 'int'),
+        array('to', $resultadosPorPagina, 'int'));
+    $cn->consulta($casasSql, $paramsCasas);
     $casas = array();
     $a = $cn->cantidadRegistros();
     for ($i = 0; $i < $a; $i++) {
         $casa = $cn->siguienteRegistro();
         array_push($casas, $casa);
     }
-    $cn->consulta("
-            SELECT count(*) as total
-            FROM propiedades
-        ");
+    $countSql = $countSql . $sql;
+    $cn->consulta($countSql, $params);
     $total = $cn->siguienteRegistro()['total'] / $resultadosPorPagina;
     $cn->desconectar();
 

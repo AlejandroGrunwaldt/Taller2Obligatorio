@@ -16,24 +16,6 @@
         <h1>Casas</h1>
             {include file = 'content/houseList.tpl'}
     </div>
-    <!-- Pagination -->
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <ul class="pagination">
-                <li value="0" id="back">
-                    <a href="#">&laquo;</a>
-                </li>
-                {for $i=1 to $paginas max = 10}
-                    <li {if $i == 1}class="active"{/if} value="{$i}">
-                        <a href="#">{$i}</a>
-                    </li>
-                {/for}
-                <li value="0" id="foward">
-                    <a href="#">&raquo;</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 {/block}
 
