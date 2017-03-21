@@ -23,8 +23,8 @@ function getCasas($pagina, $resultadosPorPagina = 10) {
     $cn = conectar();
 
     $cn->consulta("
-            SELECT * FROM propiedades
-            INNER JOIN barrios ON propiedades.barrio_id = barrios.id
+            SELECT p.*, b.nombre FROM propiedades p
+            INNER JOIN barrios b ON p.barrio_id = b.id
             LIMIT :from, :to
         ", array(
         array('from', $desde, 'int'),
@@ -113,7 +113,7 @@ function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barri
     $desde = $hasta - ($resultadosPorPagina - 1);
     $cn = conectar();
     
-    $casasSql = "SELECT * ";
+    $casasSql = "SELECT p.*, b.nombre ";
     $countSql = "SELECT count(*) as total ";
 
     $sql = "FROM propiedades p, barrios b

@@ -10,7 +10,7 @@
             <p><strong>Barrio: </strong>{$casa.nombre}</p>
             <p><strong>Habitaciones: </strong>{$casa.habitaciones}</p>
             <p><strong>Baños: </strong>{$casa.banios}</p>
-            <p><strong>Precio: $</strong>{$casa.precio}</p>
+            <p><strong>Precio: </strong>${$casa.precio}</p>
         </div>
        {if isset($usuario)} 
             <a href="./housePage.php?id={$casa.id}&e=T" target="_blank">Editar</a>
