@@ -25,6 +25,7 @@ function getCasas($pagina, $resultadosPorPagina = 10) {
     $cn->consulta("
             SELECT p.*, b.nombre FROM propiedades p
             INNER JOIN barrios b ON p.barrio_id = b.id
+            WHERE p.eliminado = 0
             LIMIT :from, :to
         ", array(
         array('from', $desde, 'int'),
@@ -117,7 +118,7 @@ function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barri
     $countSql = "SELECT count(*) as total ";
 
     $sql = "FROM propiedades p, barrios b
-            WHERE p.operacion = :op AND b.id = p.barrio_id AND b.ciudad_id = :idCiudad";
+            WHERE p.operacion = :op AND b.id = p.barrio_id AND b.ciudad_id = :idCiudad AND p.eliminado = 0";
 
     $params = array(
         array('op', $operacion, 'string'),
