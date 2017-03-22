@@ -11,7 +11,6 @@ try {
             echo json_encode($ret);
         }
     }
-    }
     if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
         actualizarDatos($_POST);
     }
@@ -113,26 +112,34 @@ function guardarPregunta($id = 0, $pregunta) {
 }
 
 function actualizarDatos($datos) {
+    $id = intval($datos[idCasa]);
     $cn = conectar();
     $cn->consulta("
-           UPDATE `propiedades`
-           SET `texto` = :texto, `precio` = :precio, `tipo` = :tipo, `operacion`= :operacion,
-           `barrio_id`= :barrio_id, `mts2`= :mts2, `habitaciones`= :habitaciones, `banios`= :banios,
-           `garage`= :garage
-           WHERE id = :id;
+        UPDATE propiedades SET 
+        `tipo` = :tipo,
+        `operacion`= :operacion,
+        `barrio_id` = :barrio_id,
+        `precio` = :precio,
+        `mts2`= :mts2,
+        `habitaciones` = :habitaciones,
+        `banios` = :banios,
+        `garage` = :garage,
+        `texto` = :texto
+           WHERE  id = :id;
        ", array(
-        array('texto', $datos[descripcionTA], 'string'),
-        array('precio', $datos.[precio], 'int'),
-        array('operacion', $datos.[operacion], 'char'),
-        array('tipo', $datos.[propiedad], 'char'),
-        array('barrio_id', $datos.[barrio], 'int'),
-        array('mts2', $datos.[mts2], 'int'),
-        array('habitaciones', $datos.[habitaciones], 'int'),
-        array('banios', $datos.[banios], 'int'),
-        array('garage', $datos.[garage], 'int'),
-        array('id', $datos.[idCasa], 'int')
+        array('tipo', $datos[propiedad], 'string'),
+        array('operacion', $datos[operacion], 'string'),
+        array('barrio_id', $datos[barrio], 'string'),
+        array('precio', $datos[precio], 'string'),
+        array('operacion', $datos[operacion], 'string'),
+        array('mts2', $datos[mts2], 'string'),
+        array('habitaciones', $datos[habitaciones], 'string'),
+        array('banios', $datos[banios], 'string'),
+        array('garage', $datos[garage], 'garage'),
+        array('texto', $datos[texto], 'texto'),
+        array('id', $id, 'string')
     ));
-    $mySmarty->display('./content/housePageEditar.tpl');
+    header("location: ./housePage.php");
 }
 function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
     $resultadosPorPagina = 10;
