@@ -7,7 +7,7 @@
         <div class="col-lg-12" id="numbers">
             <ul class="pagination">
                 {for $i=1 to $paginas max = 20}
-                    <li {if $i == 1}class="active"{/if} value="{$i}">
+                    <li id="{$i}" value="{$i}">
                         <a href="#">{$i}</a>
                     </li>
                 {/for}

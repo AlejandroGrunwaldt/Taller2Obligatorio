@@ -52,13 +52,7 @@ homePage.prototype.init = function () {
         self.buscarCasas();
     });
 
-    $(opt.DOM.pagination + " li").click(function (e) {
-        e.preventDefault();
-        $(self.options.DOM.pagination + " li").removeClass("active")
-        opt.currentPage = $(this).val();
-        $(this).addClass("active");
-        self.buscarCasas();
-    });
+    self.initPaginacion();
 
     self.cargarCiudades();
 };
@@ -124,6 +118,8 @@ homePage.prototype.buscarCasas = function () {
             data: serializedData
         }).done(function (response, textStatus, jqXHR) {
             $(opt.DOM.casasContainer).html(response);
+            self.initPaginacion();
+            $("#" + opt.currentPage).addClass("active");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error(
                     "The following error occurred: " +
@@ -133,6 +129,18 @@ homePage.prototype.buscarCasas = function () {
             $inputs.prop("disabled", false);
         });
     }
+};
+
+homePage.prototype.initPaginacion = function (){
+    var self = this,
+        opt = self.options;
+
+    $(opt.DOM.pagination + " li a").click(function (e) {
+        e.preventDefault();
+        var $parent = $(this).parent('li');
+        opt.currentPage = $parent.val();
+        self.buscarCasas();
+    });
 };
 
 $(function () {
