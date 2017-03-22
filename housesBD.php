@@ -10,7 +10,10 @@ try{
         $ret = array('OK' => 'La pregunta se registro correctamente');
         echo json_encode($ret);
     }
-}
+    }
+    if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
+        actualizarDatos($_POST);
+    }
 }catch (Exception $ex) {
     echo $ex->getMessage();
 }
@@ -106,3 +109,25 @@ function guardarPregunta($id = 0, $pregunta) {
     ));
 }
 
+function actualizarDatos($datos) {
+    $cn = conectar();
+    $cn->consulta("
+           UPDATE `propiedades`
+           SET `texto` = :texto, `precio` = :precio, `tipo` = :tipo, `operacion`= :operacion,
+           `barrio_id`= :barrio_id, `mts2`= :mts2, `habitaciones`= :habitaciones, `banios`= :banios,
+           `garage`= :garage
+           WHERE id = :id;
+       ", array(
+        array('texto', $datos[descripcionTA], 'string'),
+        array('precio', $datos.[precio], 'int'),
+        array('operacion', $datos.[operacion], 'char'),
+        array('tipo', $datos.[propiedad], 'char'),
+        array('barrio_id', $datos.[barrio], 'int'),
+        array('mts2', $datos.[mts2], 'int'),
+        array('habitaciones', $datos.[habitaciones], 'int'),
+        array('banios', $datos.[banios], 'int'),
+        array('garage', $datos.[garage], 'int'),
+        array('id', $datos.[idCasa], 'int')
+    ));
+    $mySmarty->display('./content/housePageEditar.tpl');
+}
