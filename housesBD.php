@@ -1,14 +1,15 @@
 <?php
 
 require_once('datos.php');
-try{
+try {
     if (isset($_POST['pregunta']) && !empty($_POST['pregunta'])) {
-    $pregunta = $_POST['pregunta'];
-    if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $id = $_POST['id'];
-        guardarPregunta($id, $pregunta);
-        $ret = array('OK' => 'La pregunta se registro correctamente');
-        echo json_encode($ret);
+        $pregunta = $_POST['pregunta'];
+        if (isset($_POST['id']) && !empty($_POST['id'])) {
+            $id = $_POST['id'];
+            guardarPregunta($id, $pregunta);
+            $ret = array('OK' => 'La pregunta se registro correctamente');
+            echo json_encode($ret);
+        }
     }
     }
     if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
@@ -17,6 +18,7 @@ try{
 }catch (Exception $ex) {
     echo $ex->getMessage();
 }
+
 function getCasas($pagina, $resultadosPorPagina = 10) {
 
     $hasta = ($pagina) * $resultadosPorPagina;
@@ -25,8 +27,9 @@ function getCasas($pagina, $resultadosPorPagina = 10) {
     $cn = conectar();
 
     $cn->consulta("
-            SELECT * FROM propiedades
-            INNER JOIN barrios ON propiedades.barrio_id = barrios.id
+            SELECT p.*, b.nombre FROM propiedades p
+            INNER JOIN barrios b ON p.barrio_id = b.id
+            WHERE p.eliminado = 0
             LIMIT :from, :to
         ", array(
         array('from', $desde, 'int'),
@@ -130,4 +133,69 @@ function actualizarDatos($datos) {
         array('id', $datos.[idCasa], 'int')
     ));
     $mySmarty->display('./content/housePageEditar.tpl');
+}
+function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
+    $resultadosPorPagina = 10;
+    $hasta = ($pagina) * $resultadosPorPagina;
+    $desde = $hasta - ($resultadosPorPagina - 1);
+    $cn = conectar();
+    
+    $casasSql = "SELECT p.*, b.nombre ";
+    $countSql = "SELECT count(*) as total ";
+
+    $sql = "FROM propiedades p, barrios b
+            WHERE p.operacion = :op AND b.id = p.barrio_id AND b.ciudad_id = :idCiudad AND p.eliminado = 0";
+
+    $params = array(
+        array('op', $operacion, 'string'),
+        array('idCiudad', $ciudad, 'int')
+    );
+
+    if ($avanzada == TRUE) {
+        if ($propiedad != NULL) {
+            $sql = $sql . " AND p.tipo = :tipoProp";
+            array_push($params, array('tipoProp', $propiedad, 'string'));
+        }
+        if ($barrio != NULL) {
+            $sql = $sql . " AND p.barrio_id = :idBarrio";
+            array_push($params, array('idBarrio', $barrio, 'int'));
+        }
+        if ($habitaciones != NULL) {
+            $sql = $sql . " AND p.habitaciones = :hab";
+            array_push($params, array('hab', $habitaciones, 'int'));
+        }
+        if ($pDesde != NULL && $pHasta != NULL) {
+            $sql = $sql . " AND (p.precio BETWEEN :pDesde AND :pHasta)";
+            array_push($params, array('pDesde', $pDesde, 'int'), array('pHasta', $pHasta, 'int'));
+        }
+        if ($garaje != NULL) {
+            $sql = $sql . " AND p.garaje = :garaje";
+            array_push($params, array('garaje', $garaje, 'int'));
+        }
+    }
+
+    if ($orden != NULL) {
+        $sql = $sql . " ORDER BY " . $orden. " " . ($forma === NULL ? "ASC" : $forma);
+    }
+
+    $casasSql = $casasSql . $sql . " LIMIT :from, :to";
+    $paramsCasas = $params;
+    array_push($paramsCasas, array('from', $desde, 'int'),
+        array('to', $resultadosPorPagina, 'int'));
+    $cn->consulta($casasSql, $paramsCasas);
+    $casas = array();
+    $a = $cn->cantidadRegistros();
+    for ($i = 0; $i < $a; $i++) {
+        $casa = $cn->siguienteRegistro();
+        array_push($casas, $casa);
+    }
+    $countSql = $countSql . $sql;
+    $cn->consulta($countSql, $params);
+    $total = $cn->siguienteRegistro()['total'] / $resultadosPorPagina;
+    $cn->desconectar();
+
+    return array(
+        'casas' => $casas,
+        'total' => ceil($total)
+    );
 }

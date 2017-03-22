@@ -17,7 +17,6 @@
     <!-- Page Content -->
     {block name=contentBlock}{/block}
     <!-- /.container -->
-    {include file = 'footer/footer.tpl'}
     <!-- jQuery -->
     <script src="javascript/plugins/node_modules/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->

@@ -8,7 +8,10 @@ function homePage() {
             filtrosAvanzados: "#filtros-avanzados",
             selectBarrios: "#barrios",
             filterForm: "#filter-form",
-            pagination: ".pagination"
+            pagination: ".pagination",
+            casasContainer: "#casas",
+            numbers: "#numbers",
+            selectOperacion: "#tipo-operacion"
         },
         URL: {
             ciudades: 'ciudades_Ajax.php',
@@ -17,7 +20,8 @@ function homePage() {
         },
         currentPage: 1
     };
-};
+}
+;
 
 homePage.prototype.init = function () {
     var self = this,
@@ -45,6 +49,14 @@ homePage.prototype.init = function () {
 
     $(opt.DOM.filterForm).submit(function (e) {
         e.preventDefault();
+        self.buscarCasas();
+    });
+
+    $(opt.DOM.pagination + " li").click(function (e) {
+        e.preventDefault();
+        $(self.options.DOM.pagination + " li").removeClass("active")
+        opt.currentPage = $(this).val();
+        $(this).addClass("active");
         self.buscarCasas();
     });
 
@@ -93,30 +105,34 @@ homePage.prototype.cargarBarrios = function (ciudadId) {
     }
 };
 
-homePage.prototype.buscarCasas = function (){
+homePage.prototype.buscarCasas = function () {
     var self = this,
-        opt = self.options,
-        $form = $(opt.DOM.filterForm),
-        $inputs = $form.find("input, select, button, textarea"),
-        serializedData = $form.serialize().concat("&pagina=" + opt.currentPage);
+            opt = self.options,
+            $form = $(opt.DOM.filterForm),
+            $inputs = $form.find("input, select, button, textarea"),
+            serializedData = $form.serialize().concat("&pagina=" + opt.currentPage);
 
+    if ($(opt.DOM.selectCiudades).val() === "0") {
+        alert("Debe seleccionar una ciudad");
+    } else if ($(opt.DOM.selectOperacion).val() === "") {
+        alert("Debe seleccionar un tipo de operacion");
+    } else {
         $inputs.prop("disabled", true);
-
         var request = $.ajax({
             url: opt.URL.busqueda,
             type: "post",
             data: serializedData
-        }).done(function (response, textStatus, jqXHR){
-            console.log("Hooray, it worked!");
-            console.log(response);
-        }).fail(function (jqXHR, textStatus, errorThrown){
+        }).done(function (response, textStatus, jqXHR) {
+            $(opt.DOM.casasContainer).html(response);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error(
-                "The following error occurred: "+
-                textStatus, errorThrown
-            );
+                    "The following error occurred: " +
+                    textStatus, errorThrown
+                    );
         }).always(function () {
             $inputs.prop("disabled", false);
         });
+    }
 };
 
 $(function () {

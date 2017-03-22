@@ -1,16 +1,16 @@
 {extends file ='layout.tpl'}
 
 {block name = contentBlock}
-<div id='houseTemplate'>
+    <div id='houseTemplate' class="col-lg-12">
         <div id='title'>
             <h1>{$casa.titulo}</h1>
         </div>
         <div id='description'>
             <h2>Descripción</h2>
-                <p> {$casa.texto} </p>
+            <p> {$casa.texto} </p>
             <br>
             <h2>Precio</h2>
-            <p> {$casa.precio} </p>
+            <p> $ {$casa.precio} </p>
             <br>
             <h2>Barrio</h2>
             <p> {$casa.barrio} </p>
@@ -34,12 +34,15 @@
             {/if}
             <div id='entrarPregunta'>
                 <h4>Entrar preguntas</h4>
-                Pregunta: <input id='pregunta' type="text" name="pregunta"><br>
+                Pregunta: <textarea id='pregunta' type="text" name="pregunta" width="100%"></textarea><br>
                 <input type='button' id='guardarPregunta' value="Submit">
             </div>
 
         </div>
 </div>
+            <div class="row">
+                <a href="./pdfCasa.php?id={$casa.id}" class="btn btn-success">Descargar</a>
+            </div>
 {/block}
 {block name = scripts}
     <script type="text/javascript" src="./js/content/housePage.js"></script>
