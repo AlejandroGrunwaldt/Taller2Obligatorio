@@ -11,7 +11,10 @@ try {
             echo json_encode($ret);
         }
     }
-} catch (Exception $ex) {
+    if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
+        actualizarDatos($_POST);
+    }
+}catch (Exception $ex) {
     echo $ex->getMessage();
 }
 
@@ -108,6 +111,36 @@ function guardarPregunta($id = 0, $pregunta) {
     ));
 }
 
+function actualizarDatos($datos) {
+    $id = intval($datos[idCasa]);
+    $cn = conectar();
+    $cn->consulta("
+        UPDATE propiedades SET 
+        `tipo` = :tipo,
+        `operacion`= :operacion,
+        `barrio_id` = :barrio_id,
+        `precio` = :precio,
+        `mts2`= :mts2,
+        `habitaciones` = :habitaciones,
+        `banios` = :banios,
+        `garage` = :garage,
+        `texto` = :texto
+           WHERE  id = :id;
+       ", array(
+        array('tipo', $datos[propiedad], 'string'),
+        array('operacion', $datos[operacion], 'string'),
+        array('barrio_id', $datos[barrio], 'string'),
+        array('precio', $datos[precio], 'string'),
+        array('operacion', $datos[operacion], 'string'),
+        array('mts2', $datos[mts2], 'string'),
+        array('habitaciones', $datos[habitaciones], 'string'),
+        array('banios', $datos[banios], 'string'),
+        array('garage', $datos[garage], 'garage'),
+        array('texto', $datos[texto], 'texto'),
+        array('id', $id, 'string')
+    ));
+    header("location: ./housePage.php");
+}
 function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
     $resultadosPorPagina = 10;
     $hasta = ($pagina) * $resultadosPorPagina;
