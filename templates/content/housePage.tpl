@@ -12,8 +12,14 @@
             <h2>Precio</h2>
             <p> $ {$casa.precio} </p>
             <br>
+            <h2>Precio por Mts2</h2>
+            <p>{$precioXMts2} {$moneda}/m2</p>
+            <br>
             <h2>Barrio</h2>
             <p> {$casa.barrio} </p>
+            <br>
+            <h2>Precio promedio del barrio</h2>
+            <p> {$promedio} {$moneda}/m2</p>
             <br>
             <h2>Ciudad</h2>
             <p> {$casa.ciudad} </p>
