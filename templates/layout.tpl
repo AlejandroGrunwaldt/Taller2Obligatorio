@@ -8,9 +8,10 @@
     <meta name="author" content="Alejandro Gruwaldt & Juan B Heber">
     <title>A ORT Vamos</title>
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/4-col-portfolio.css" rel="stylesheet">
+    <link href="css/houseCell.css" rel="stylesheet">
 </head>
 <body>
     {include file = 'header/header.tpl'}

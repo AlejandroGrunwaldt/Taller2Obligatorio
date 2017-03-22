@@ -7,8 +7,8 @@
         <meta name="author" content="Alejandro Gruwaldt & Juan B Heber">
         <title>Login</title>
         <!-- Bootstrap Core CSS -->
-        <link href="./css/bootstrap.min.css" rel="stylesheet">
-        <link href="./css/signin.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/signin.css" rel="stylesheet">
     </head>
     <body>
       {include file = 'header/header.tpl'}
@@ -32,8 +32,8 @@
       </div> 
       <!-- /container -->
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="javascript/plugins/node_modules/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="javascript/plugins/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>

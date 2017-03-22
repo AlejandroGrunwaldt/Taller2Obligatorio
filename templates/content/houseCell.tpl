@@ -12,8 +12,11 @@
             <p><strong>Baños: </strong>{$casa.banios}</p>
             <p><strong>Precio: </strong>${$casa.precio}</p>
         </div>
-       {if isset($usuario)} 
-            <a href="./housePage.php?id={$casa.id}&e=T" target="_blank">Editar</a>
-       {/if}   
+        <div class="col-lg-12">
+            <a href="./pdfCasa.php?id={$casa.id}" class="btn btn-success" target="_blank">Descargar</a>
+            {if isset($usuario)} 
+                 <a href="./housePage.php?id={$casa.id}&e=T" target="_blank"  class="btn btn-default">Editar</a>
+            {/if}  
+        </div> 
     </div>
 </div>
