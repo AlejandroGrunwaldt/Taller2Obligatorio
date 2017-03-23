@@ -9,7 +9,7 @@ $operacion = isset($_POST['operacion']) && trim($_POST['operacion']) !== "" ? $_
 $ciudad = isset($_POST['ciudad']) && trim($_POST['ciudad']) !== "0" ? $_POST['ciudad'] : null;
 $avanzada = isset($_POST['avanzada']) && trim($_POST['avanzada']) === "on" ? true : false;
 $propiedad = isset($_POST['propiedad']) && trim($_POST['propiedad']) !== "" ? $_POST['propiedad'] : null;
-$barrio = isset($_POST['barrio']) && trim($_POST['barrio']) !== "" ? $_POST['barrio'] : null;
+$barrio = isset($_POST['barrio']) && trim($_POST['barrio']) !== "0" ? $_POST['barrio'] : null;
 $habitaciones = isset($_POST['habitaciones']) && trim($_POST['habitaciones']) !== "" ? $_POST['habitaciones'] : null;
 $desde = isset($_POST['desde']) && trim($_POST['desde']) !== "" ? $_POST['desde'] : null;
 $hasta = isset($_POST['hasta']) && trim($_POST['hasta']) !== "" ? $_POST['hasta'] : null;

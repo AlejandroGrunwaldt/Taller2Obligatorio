@@ -155,10 +155,12 @@ function actualizarDatos($datos) {
        ", $sqlParametros);
     header("location: ./housePage.php?id=".$id);
 }
-function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
+
+function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad
+        , $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
     $resultadosPorPagina = 10;
-    $hasta = ($pagina) * $resultadosPorPagina;
-    $desde = $hasta - ($resultadosPorPagina - 1);
+    $hasta = ($pagina) * $resultadosPorPagina - 1;
+    $desde = $hasta - ($resultadosPorPagina) + 1;
     $cn = conectar();
     
     $casasSql = "SELECT p.*, b.nombre ";
@@ -185,9 +187,13 @@ function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barri
             $sql = $sql . " AND p.habitaciones = :hab";
             array_push($params, array('hab', $habitaciones, 'int'));
         }
-        if ($pDesde != NULL && $pHasta != NULL) {
-            $sql = $sql . " AND (p.precio BETWEEN :pDesde AND :pHasta)";
-            array_push($params, array('pDesde', $pDesde, 'int'), array('pHasta', $pHasta, 'int'));
+        if ($pDesde != NULL) {
+            $sql = $sql . " AND p.precio >= :pDesde";
+            array_push($params, array('pDesde', $pDesde, 'int'));
+        }
+        if ($pHasta != NULL) {
+            $sql = $sql . " AND p.precio <= :pHasta";
+            array_push($params, array('pHasta', $pHasta, 'int'));
         }
         if ($garaje != NULL) {
             $sql = $sql . " AND p.garaje = :garaje";
@@ -219,4 +225,33 @@ function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barri
         'casas' => $casas,
         'total' => ceil($total)
     );
+}
+
+function getPromedioPrecioBarrio($idBarrio, $tipoOp){
+    $cn = conectar();
+    $cn->consulta("
+            SELECT p.precio, p.mts2
+            FROM propiedades p
+            WHERE p.eliminado = 0 AND p.barrio_id = :idBarrio 
+            AND p.operacion = :tipoOp
+        ", array(
+        array('idBarrio', $idBarrio, 'int'),
+        array('tipoOp', $tipoOp, 'string')
+    ));
+    $tuplas = array();
+    $a = $cn->cantidadRegistros();
+    for ($i = 0; $i < $a; $i++) {
+        $tupla = $cn->siguienteRegistro();
+        array_push($tuplas, $tupla);
+    }
+
+    $cn->desconectar();
+        
+    $promedioAcumulado = 0;
+    foreach ($tuplas as $par){
+        $promedioAcumulado += $par[precio] / $par[mts2];
+    }
+    $prom = $promedioAcumulado / $a;
+    
+    return number_format($prom, 2, '.', '');
 }
