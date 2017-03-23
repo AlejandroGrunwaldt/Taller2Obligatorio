@@ -1,20 +1,28 @@
 $(document).ready(function () {
 
-    $('#guardarRespuesta').click(function () {
-        guardarRespuesta();
+    $('.guardarRespuesta').click(function () {
+        var id = $(this).data("id");
+        var textAreaId = "#" + id;
+        var respuesta = $(textAreaId).val();
+        guardarRespuesta(respuesta, id);
     });
 });
-function guardarRespuesta() {
-    var respuesta = event.currentTarget.parentElement.previousElementSibling.value;
-    var id = event.currentTarget.parentElement.parentElement.dataset.id;
-    $.ajax({url: 'preguntas.php',
+
+function guardarRespuesta(respuesta, id) {
+    $.ajax({url: 'responderPregunta.php',
         data: {
             respuesta: respuesta,
             id: id
         },
         type: 'post',
-        success: function (output) {
-            alert(output);
+        success: function (response) {
+            $("#contenido-preguntas").html(response);
+            $('.guardarRespuesta').click(function () {
+                var id = $(this).data("id");
+                var textAreaId = "#" + id;
+                var respuesta = $(textAreaId).val();
+                guardarRespuesta(respuesta, id);
+            });
         },
         fail: function(output){
             alert(output);

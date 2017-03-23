@@ -117,3 +117,17 @@ function obtener_barrios($ciudadId){
 
     return $barrios;
 }
+
+function guardarRespuesta($respuesta, $id = 0) {
+    $cn = conectar();
+    $date = date('Y-m-d H:i:s');
+    $cn->consulta("
+           UPDATE `preguntas`
+           SET `respuesta` = :respuesta, `fecha_respuesta` = :fecha_respuesta
+           WHERE id = :id;
+       ", array(
+        array('respuesta', $respuesta, 'string'),
+        array('fecha_respuesta', $date, 'string'),
+        array('id', $id, 'string')
+    ));
+}

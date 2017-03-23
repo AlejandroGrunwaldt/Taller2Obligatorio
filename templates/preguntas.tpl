@@ -7,7 +7,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <div class="row col-lg-12">
+    <div class="row col-lg-12" id="contenido-preguntas">
         {foreach from = $preguntas item = pregunta}
             {include file = 'preguntas/pregunta.tpl'}
         {/foreach}
