@@ -3,6 +3,13 @@ $(document).ready(function () {
     $('#guardarPregunta').click(function () {
         crearPregunta();
     });
+
+    if ($("#slides img").length > 1) {
+        $("#slides").slidesjs({
+            width: 900,
+            height: 500
+        });
+    }
 });
 function crearPregunta() {
     var pregunta = $('#pregunta').val();
@@ -18,7 +25,7 @@ function crearPregunta() {
             alert(output);
             $('#pregunta').val("")
         },
-        fail: function(output){
+        fail: function (output) {
             alert(output);
         }
     });

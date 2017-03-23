@@ -165,8 +165,8 @@ function actualizarDatos($datos) {
         move_uploaded_file($temporal, 
                 $carpeta . "/" . $imagenes['name'][$i] );
     }
-    header("location: ./housePage.php?id=".$id);
     $cn->desconectar();
+    
 }
 
 function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad

@@ -81,9 +81,11 @@
         </div>
     </div>
     <div class="col-lg-8 col-lg-offset-2 panel panel-default imagen">
-        {foreach from=$imagenes item=img}
-            <img src="./imagenes/{$casa.id}/{$img}" />
-        {/foreach}
+        <div id="slides">
+           {foreach from=$imagenes item=img}
+                <img src="./imagenes/{$casa.id}/{$img}" />
+            {/foreach} 
+        </div>  
     </div>
     <div id='questions' class="col-lg-12">
         <div class="panel panel-default">
@@ -114,6 +116,7 @@
 </div>
 {/block}
 {block name = scripts}
-    <script type="text/javascript" src="./js/content/housePage.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.slides.min.js"></script>
+    <script type="text/javascript" src="./js/content/housePage.js"></script> 
     <link href="css/housePage.css" rel="stylesheet">
 {/block}
