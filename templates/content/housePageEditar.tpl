@@ -1,7 +1,7 @@
 {extends file ='layout.tpl'}
 
 {block name = contentBlock}
-<form class=""  method="post" id="editForm" enctype="multipart/form-data">
+<form class="" action="actualizarDatosCasa.php" method="post" id="editForm">
     <input id="idCasa" type="text" name="idCasa" value="{$casa.id}" hidden>
     <input id="editar" type="text" name="editar" value="true" hidden>
     <div id='houseTemplate'>

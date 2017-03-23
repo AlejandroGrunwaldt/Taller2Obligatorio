@@ -131,3 +131,14 @@ function guardarRespuesta($respuesta, $id = 0) {
         array('id', $id, 'string')
     ));
 }
+
+function getPromedioCiudad($idCiudad, $tipoOp){
+    
+    $barrios = obtener_barrios($idCiudad);
+    $promedio = array();
+    foreach ($barrios as $barrio) {
+        $estadistica = getPromedioPrecioBarrio($barrio["id"], $tipoOp);
+        array_push($promedio, array("barrio" => $barrio, "promedio" => $estadistica["promedio"], "cantidad" => $estadistica["cantidad"]));
+    }
+    return $promedio;
+}

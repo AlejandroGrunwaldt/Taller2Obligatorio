@@ -1,9 +1,6 @@
 <?php
 
 require_once('datos.php');
-if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
-    actualizarDatos($_POST);
-}
 
 function getCasas($pagina, $resultadosPorPagina = 10) {
 
@@ -167,6 +164,7 @@ function actualizarDatos($datos) {
                 $carpeta . "/" . $imagenes['name'][$i] );
     }
     header("location: ./housePage.php?id=".$id);
+    $cn->desconectar();
 }
 
 function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad
@@ -266,7 +264,10 @@ function getPromedioPrecioBarrio($idBarrio, $tipoOp){
     }
     $prom = $promedioAcumulado / $a;
     
-    return number_format($prom, 2, '.', '');
+    return array(
+        'promedio' => number_format($prom, 2, '.', ''),
+        'cantidad' => $a
+    );
 }
 function obtenerImagenes($idCasa){
     $path = "./imagenes/" . $idCasa;
