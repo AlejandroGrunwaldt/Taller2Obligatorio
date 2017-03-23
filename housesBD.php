@@ -273,3 +273,26 @@ function obtenerImagenes($idCasa){
     $path = "./imagenes/" . $idCasa;
     return array_diff(scandir($path), array('.', '..'));
 }
+
+function crearPropiedad($datos) {
+    $barrio_id = $datos[barrio] ? $datos[barrio] : $datos[idBarrioActual];
+    if (!$datos[garage]) {
+        $datos[garage] = "0";
+    }
+    $sqlParametros = array(array('tipo', $datos[propiedad], 'string'),
+        array('operacion', $datos[operacion], 'string'),
+        array('barrio_id', intval($barrio_id), 'int'),
+        array('precio', intval($datos[precio]), 'int'),
+        array('mts2', intval($datos[mts2]), 'int'),
+        array('habitaciones', intval($datos[habitaciones]), 'int'),
+        array('banios', intval($datos[banios]), 'int'),
+        array('garage', intval($datos[garage]), 'int'),
+        array('texto', $datos[descripcionTA], 'string'));
+    
+    $cn = conectar();
+    $cn->consulta("
+        INSERT INTO propiedades (tipo, operacion, barrio_id, precio, mts2, habitaciones, banios, garage, texto) 
+        VALUES  ( :tipo, :operaciones, :barrio_id, :precio, :mts2, :habitaciones, :banios, :garage, :texto);
+       ", $sqlParametros);
+    $cn->desconectar();
+}
