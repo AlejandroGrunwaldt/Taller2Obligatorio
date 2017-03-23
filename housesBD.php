@@ -1,23 +1,5 @@
 <?php
 
-require_once('datos.php');
-try {
-    if (isset($_POST['pregunta']) && !empty($_POST['pregunta'])) {
-        $pregunta = $_POST['pregunta'];
-        if (isset($_POST['id']) && !empty($_POST['id'])) {
-            $id = $_POST['id'];
-            guardarPregunta($id, $pregunta);
-            $ret = array('OK' => 'La pregunta se registro correctamente');
-            echo json_encode($ret);
-        }
-    }
-    if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
-        actualizarDatos($_POST);
-    }
-}catch (Exception $ex) {
-    echo $ex->getMessage();
-}
-
 function getCasas($pagina, $resultadosPorPagina = 10) {
 
     $hasta = ($pagina) * $resultadosPorPagina;

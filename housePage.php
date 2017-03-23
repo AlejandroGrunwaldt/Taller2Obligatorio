@@ -16,11 +16,13 @@ $precioPromedio = $casa[precio] / $casa[mts2];
 $precioXMts2 = number_format($precioPromedio, 2, '.', '');
 $moneda = $casa[operacion] === "A" ? '$UYU' : 'U$D';
 $promedio = getPromedioPrecioBarrio($casa[barrio_id], $casa[operacion]);
+$operacion = $casa[operacion] === "A" ? 'Alquiler' : 'Compra';
 $mySmarty->assign('casa', $casa);
 $mySmarty->assign('preguntas', $preguntas[preguntas]);
 $mySmarty->assign('precioXMts2', $precioXMts2);
 $mySmarty->assign('moneda', $moneda);
 $mySmarty->assign('promedio', $promedio);
+$mySmarty->assign('operacion', $operacion);
 
 if (isset($_SESSION['usuario'])) {
     $mySmarty->assign("usuario", $_SESSION["usuario"]);
