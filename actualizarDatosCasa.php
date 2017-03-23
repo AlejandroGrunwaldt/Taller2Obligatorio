@@ -2,8 +2,13 @@
 
 require_once 'datos.php';
 
-if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar'] == 'true') {
-    $x = 1;
-    actualizarDatos($_POST);
-    header("location: ./housePage.php?id=".$_POST['idCasa']);
+session_start();
+if (isset($_SESSION['usuario'])) {
+
+    if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar'] == 'true') {
+        actualizarDatos($_POST);
+        header("location: ./housePage.php?id=" . $_POST['idCasa']);
+    }
+} else {
+    header("location: ./login.php");
 }

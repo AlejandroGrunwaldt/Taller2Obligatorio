@@ -17,6 +17,11 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <div class="list-group-item">
+                            Tipo:
+                            <span class="pull-right text-muted small"><em>{if $tipo == "A"}Apartamento{else}Casa{/if}</em>
+                            </span>
+                        </div>
+                        <div class="list-group-item">
                             Precio:
                             <span class="pull-right text-muted small"><em>{$moneda} {$casa.precio}</em>
                             </span>
@@ -37,8 +42,18 @@
                             </span>
                         </div>
                         <div class="list-group-item">
+                            Habitaciones:
+                            <span class="pull-right text-muted small"><em>{$casa.habitaciones}</em>
+                            </span>
+                        </div>
+                        <div class="list-group-item">
                             Baños:
                             <span class="pull-right text-muted small"><em>{$casa.banios}</em>
+                            </span>
+                        </div>
+                        <div class="list-group-item">
+                            Garage:
+                            <span class="pull-right text-muted small"><em>{if $garage == 1}Si{else}No{/if}</em>
                             </span>
                         </div>
                         <div class="list-group-item">
