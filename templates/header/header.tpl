@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Estadisticas</a>
+                        <a href="./estadistica.php">Estadisticas</a>
                     </li>
                     {if isset($usuario)}
                         <li>

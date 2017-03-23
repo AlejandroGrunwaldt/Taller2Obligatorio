@@ -15,7 +15,7 @@ $preguntas = getPreguntas($id);
 $precioPromedio = $casa[precio] / $casa[mts2];
 $precioXMts2 = number_format($precioPromedio, 2, '.', '');
 $moneda = $casa[operacion] === "A" ? '$UYU' : 'U$D';
-$promedio = getPromedioPrecioBarrio($casa[barrio_id], $casa[operacion]);
+$promedio = getPromedioPrecioBarrio($casa[barrio_id], $casa[operacion])[promedio];
 $operacion = $casa[operacion] === "A" ? 'Alquiler' : 'Compra';
 $mySmarty->assign('casa', $casa);
 $mySmarty->assign('preguntas', $preguntas[preguntas]);

@@ -251,5 +251,8 @@ function getPromedioPrecioBarrio($idBarrio, $tipoOp){
     }
     $prom = $promedioAcumulado / $a;
     
-    return number_format($prom, 2, '.', '');
+    return array(
+        'promedio' => number_format($prom, 2, '.', ''),
+        'cantidad' => $a
+    );
 }
