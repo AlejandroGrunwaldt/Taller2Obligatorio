@@ -1,9 +1,6 @@
 <?php
 
 require_once('datos.php');
-if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
-    actualizarDatos($_POST);
-}
 
 function getCasas($pagina, $resultadosPorPagina = 10) {
 
@@ -153,7 +150,8 @@ function actualizarDatos($datos) {
         UPDATE propiedades SET ".$sql." 
            WHERE  `id` = :id;
        ", $sqlParametros);
-    header("location: ./housePage.php?id=".$id);
+    
+    $cn->desconectar();
 }
 
 function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad
