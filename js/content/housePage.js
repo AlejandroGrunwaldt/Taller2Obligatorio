@@ -8,7 +8,7 @@ function crearPregunta() {
     var pregunta = jQuery('#pregunta').val();
     var url = window.location.href;
     var id = url.split('#').pop().split('=').pop();
-    $.ajax({url: 'housesBD.php',
+    $.ajax({url: 'guardarPreguntas.php',
         data: {
             pregunta: pregunta,
             id: id

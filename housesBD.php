@@ -1,18 +1,8 @@
 <?php
 
 require_once('datos.php');
-try {
-    if (isset($_POST['pregunta']) && !empty($_POST['pregunta'])) {
-        $pregunta = $_POST['pregunta'];
-        if (isset($_POST['id']) && !empty($_POST['id'])) {
-            $id = $_POST['id'];
-            guardarPregunta($id, $pregunta);
-            $ret = array('OK' => 'La pregunta se registro correctamente');
-            echo json_encode($ret);
-        }
-    }
-} catch (Exception $ex) {
-    echo $ex->getMessage();
+if (isset($_POST['editar']) && !empty($_POST['editar']) && $_POST['editar']=='true') {
+    actualizarDatos($_POST);
 }
 
 function getCasas($pagina, $resultadosPorPagina = 10) {
@@ -57,7 +47,7 @@ function getCasa($id = 0) {
     $cn = conectar();
 
     $cn->consulta("
-            SELECT p.id, p.tipo, p.operacion, p.precio, p.mts2, p.habitaciones, p.banios, p.garage, p.titulo, p.texto, b.nombre as `barrio`, c.nombre as `ciudad`
+            SELECT p.id, p.tipo, p.operacion, p.precio, p.mts2, p.habitaciones, p.banios, p.garage, p.titulo, p.texto, p.barrio_id, b.nombre as `barrio`, c.nombre as `ciudad`
             FROM `propiedades` p, `barrios` b, `ciudades` c
             WHERE p.id = :id
             AND p.barrio_id = b.id
@@ -108,6 +98,63 @@ function guardarPregunta($id = 0, $pregunta) {
     ));
 }
 
+function actualizarDatos($datos) {
+    $sqlConBaja = "`tipo` = :tipo,
+        `operacion`= :operacion,
+        `barrio_id` = :barrio_id,
+        `precio` = :precio,
+        `mts2`= :mts2,
+        `habitaciones` = :habitaciones,
+        `banios` = :banios,
+        `garage` = :garage,
+        `texto` = :texto,
+        `motivo_baja_id` = :motivo_baja_id,
+        `eliminado` = :eliminado";
+    $sqlSinBaja = "`tipo` = :tipo,
+        `operacion`= :operacion,
+        `barrio_id` = :barrio_id,
+        `precio` = :precio,
+        `mts2`= :mts2,
+        `habitaciones` = :habitaciones,
+        `banios` = :banios,
+        `garage` = :garage,
+        `texto` = :texto";
+    $id = intval($datos[idCasa]);
+    $barrio_id = $datos[barrio] ? $datos[barrio] : $datos[idBarrioActual];
+    if (!$datos[garage]) {
+        $datos[garage] = "0";
+    }
+    $sqlParametros = array(array('tipo', $datos[propiedad], 'string'),
+        array('operacion', $datos[operacion], 'string'),
+        array('barrio_id', $barrio_id, 'int'),
+        array('precio', intval($datos[precio]), 'int'),
+        array('mts2', intval($datos[mts2]), 'int'),
+        array('habitaciones', intval($datos[habitaciones]), 'int'),
+        array('banios', intval($datos[banios]), 'int'),
+        array('garage', intval($datos[garage]), 'int'),
+        array('texto', $datos[descripcionTA], 'string'),
+        array('id', $id, 'int'));
+    $sql = "";
+    
+    $cn = conectar();
+    $motivoBaja = intval($datos[motivo_baja]);
+    $eliminado = 0;
+    if ($motivoBaja != 0) {
+        $eliminado = 1;
+        $sql = $sqlConBaja;
+        array_push($sqlParametros, array('motivo_baja_id', $motivoBaja, 'int'),array('eliminado', $eliminado, 'int'));
+    }else{
+        $sql = $sqlSinBaja;
+    }
+    
+    
+    
+    $cn->consulta("
+        UPDATE propiedades SET ".$sql." 
+           WHERE  `id` = :id;
+       ", $sqlParametros);
+    header("location: ./housePage.php?id=".$id);
+}
 function buscarCasas($pagina, $operacion, $ciudad, $avanzada, $propiedad, $barrio, $habitaciones, $pDesde, $pHasta, $garaje, $orden, $forma) {
     $resultadosPorPagina = 10;
     $hasta = ($pagina) * $resultadosPorPagina;
