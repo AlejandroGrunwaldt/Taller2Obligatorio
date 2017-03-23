@@ -1,7 +1,7 @@
 {extends file ='layout.tpl'}
 
 {block name = contentBlock}
-<form class="" action="housesBD.php" method="post" id="editForm">
+<form class=""  method="post" id="editForm" enctype="multipart/form-data">
     <input id="idCasa" type="text" name="idCasa" value="{$casa.id}" hidden>
     <input id="editar" type="text" name="editar" value="true" hidden>
     <div id='houseTemplate'>
@@ -81,10 +81,13 @@
             <div>
                 <input type="checkbox" id="editar-garage" name="editar-garage"><label style="margin-left: 5px;">Garage</label>
             </div>
-            
+            {if $edit}
+            <input type="file" multiple name="imagenes[]"> <br>
+            {/if}
         </div>
     </div>
-    <input type="submit" value="Guardar" id="guardarCambios">
+    <input type="submit" value="Guardar" {if $new}hidden {/if}id="guardarCambios">
+    <input type="submit" value="Crear" {if $edit}hidden {/if}id="crearPropiedad">
 </form>
 {/block}
 {block name = scripts}

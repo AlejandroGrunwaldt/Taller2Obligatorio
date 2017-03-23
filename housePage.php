@@ -9,6 +9,13 @@ if(isset($_GET['error'])){
 $id = 0;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+}else{
+    if (isset($_SESSION['usuario'])) {
+        $mySmarty->assign("usuario", $_SESSION["usuario"]);
+        $mySmarty->assign("new", true);
+        $mySmarty->display('./content/housePageEditar.tpl');
+        return;
+    }
 }
 $casa = getCasa($id)[casa];
 $preguntas = getPreguntas($id);
@@ -23,6 +30,7 @@ $mySmarty->assign('precioXMts2', $precioXMts2);
 $mySmarty->assign('moneda', $moneda);
 $mySmarty->assign('promedio', $promedio);
 $mySmarty->assign('operacion', $operacion);
+$mySmarty->assign('imagenes', obtenerImagenes($id));
 
 if (isset($_SESSION['usuario'])) {
     $mySmarty->assign("usuario", $_SESSION["usuario"]);

@@ -65,6 +65,11 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-8 col-lg-offset-2 panel panel-default imagen">
+        {foreach from=$imagenes item=img}
+            <img src="./imagenes/{$casa.id}/{$img}" />
+        {/foreach}
+    </div>
     <div id='questions' class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -95,4 +100,5 @@
 {/block}
 {block name = scripts}
     <script type="text/javascript" src="./js/content/housePage.js"></script>
+    <link href="css/housePage.css" rel="stylesheet">
 {/block}

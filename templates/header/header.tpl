@@ -19,6 +19,9 @@
                     </li>
                     {if isset($usuario)}
                         <li>
+                            <a href="./housePage.php">Añadir propiedad</a>
+                        </li>
+                        <li>
                             <a href="#">Mantenimiento</a>
                         </li>
                         <li>

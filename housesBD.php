@@ -126,7 +126,7 @@ function actualizarDatos($datos) {
     }
     $sqlParametros = array(array('tipo', $datos[propiedad], 'string'),
         array('operacion', $datos[operacion], 'string'),
-        array('barrio_id', $barrio_id, 'int'),
+        array('barrio_id', intval($barrio_id), 'int'),
         array('precio', intval($datos[precio]), 'int'),
         array('mts2', intval($datos[mts2]), 'int'),
         array('habitaciones', intval($datos[habitaciones]), 'int'),
@@ -153,6 +153,19 @@ function actualizarDatos($datos) {
         UPDATE propiedades SET ".$sql." 
            WHERE  `id` = :id;
        ", $sqlParametros);
+    
+    $carpeta = "./imagenes/" . $id;
+
+    if(!file_exists($carpeta)){
+        mkdir($carpeta);
+    }
+
+    $imagenes = $_FILES['imagenes'];
+    for($i=0; $i<count($imagenes['name']);$i++){
+        $temporal = $imagenes['tmp_name'][$i];
+        move_uploaded_file($temporal, 
+                $carpeta . "/" . $imagenes['name'][$i] );
+    }
     header("location: ./housePage.php?id=".$id);
 }
 
@@ -254,4 +267,8 @@ function getPromedioPrecioBarrio($idBarrio, $tipoOp){
     $prom = $promedioAcumulado / $a;
     
     return number_format($prom, 2, '.', '');
+}
+function obtenerImagenes($idCasa){
+    $path = "./imagenes/" . $idCasa;
+    return array_diff(scandir($path), array('.', '..'));
 }
