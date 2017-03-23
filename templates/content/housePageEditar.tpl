@@ -10,8 +10,12 @@
         </div>
         <div id='description'>
             <div>
+                <h3>Titulo</h3>
+                <input id="titulo" type="text" name="titulo" value="{$casa.titulo}"/>
+            </div>
+            <div>
                 <h3>Descripción</h3>
-                <textarea id="descripcionTA" style="width: 700px" form="editForm" rows="7" name="descripcionTA" value="">{$casa.texto}</textarea>
+                <textarea id="descripcionTA" type="text" style="width: 700px" form="editForm" rows="7" name="descripcionTA" value="">{$casa.texto}</textarea>
             </div>
             <div class="col-lg-5">
                 <div class="form-group">
@@ -44,7 +48,7 @@
             </div>
             <div>
                 <label>Precio</label>
-                <input id="precio" type="text" name="precio" value="{$casa.precio}">
+                <input id="precio" type="number" name="precio" value="{$casa.precio}"/>
             </div>
             <div>
                 <input type="checkbox" id="editar-ciudad" name="editar-ciudad"><label style="margin-left: 5px;"> Editar ciudad/barrio</label>
@@ -60,7 +64,7 @@
             <div class="col-lg-2">
                 <div class="form-group">
                     <label>Barrio actual: {$casa.barrio}</label>
-                    <input id="idBarrioActual" type="text" name="idBarrioActual" value="{$casa.barrio_id}" hidden>
+                    <input id="idBarrioActual" type="number" name="idBarrioActual" value="{$casa.barrio_id}" hidden>
                     <select class="form-control" id="barrios" disabled="true" name="barrio">
                         <option value="N" selected="true">...</option>
                     </select>
@@ -68,15 +72,15 @@
             </div>
             <div>
                 <label>Baños</label>
-                <input id="banios" type="text" name="banios" value="{$casa.banios}">
+                <input id="banios" type="number" name="banios" value="{$casa.banios}">
             </div>
             <div>
                 <label>Habitaciones</label>
-                <input id="habitaciones" type="text" name="habitaciones" value="{$casa.habitaciones}">
+                <input id="habitaciones" type="number" name="habitaciones" value="{$casa.habitaciones}">
             </div>
             <div>
                 <label>Mts2</label>
-                <input id="mts2" type="text" name="mts2" value="{$casa.mts2}">
+                <input id="mts2" type="number" name="mts2" value="{$casa.mts2}">
             </div>
             <div>
                 <input type="checkbox" id="editar-garage" name="editar-garage"><label style="margin-left: 5px;">Garage</label>

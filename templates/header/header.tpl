@@ -22,9 +22,6 @@
                             <a href="./housePage.php">Añadir propiedad</a>
                         </li>
                         <li>
-                            <a href="#">Mantenimiento</a>
-                        </li>
-                        <li>
                             <a href="./preguntas.php">Preguntas</a>
                         </li>
                         <li class="pull-right">

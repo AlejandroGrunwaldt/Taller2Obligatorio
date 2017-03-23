@@ -117,9 +117,11 @@ function actualizarDatos($datos) {
         `garage` = :garage,
         `texto` = :texto";
     $id = intval($datos[idCasa]);
-    $barrio_id = $datos[barrio] ? $datos[barrio] : $datos[idBarrioActual];
-    if (!$datos[garage]) {
+    $barrio_id = $datos[barrio] === "" ? $datos[barrio] : $datos[idBarrioActual];
+    if (!$datos[editar-garage] === "on") {
         $datos[garage] = "0";
+    }else {
+        $datos[garage] = "1";
     }
     $sqlParametros = array(array('tipo', $datos[propiedad], 'string'),
         array('operacion', $datos[operacion], 'string'),
@@ -275,24 +277,33 @@ function obtenerImagenes($idCasa){
 }
 
 function crearPropiedad($datos) {
-    $barrio_id = $datos[barrio] ? $datos[barrio] : $datos[idBarrioActual];
-    if (!$datos[garage]) {
+    if (!$datos[editar-garage] == "on") {
+        $datos[garage] = "1";
+    }else {
         $datos[garage] = "0";
     }
-    $sqlParametros = array(array('tipo', $datos[propiedad], 'string'),
+    $sqlParametros = array(
+        array('tipo', $datos[propiedad], 'string'),
         array('operacion', $datos[operacion], 'string'),
-        array('barrio_id', intval($barrio_id), 'int'),
-        array('precio', intval($datos[precio]), 'int'),
-        array('mts2', intval($datos[mts2]), 'int'),
-        array('habitaciones', intval($datos[habitaciones]), 'int'),
-        array('banios', intval($datos[banios]), 'int'),
-        array('garage', intval($datos[garage]), 'int'),
-        array('texto', $datos[descripcionTA], 'string'));
+        array('barrio_id', (int)$datos[barrio], 'int'),
+        array('precio', (int)($datos[precio]), 'int'),
+        array('mts2', (int)($datos[mts2]), 'int'),
+        array('habitaciones', (int)($datos[habitaciones]), 'int'),
+        array('banios', (int)($datos[banios]), 'int'),
+        array('garage', (int)($datos[garage]), 'int'),
+        array('texto', $datos[descripcionTA], 'string'),
+        array('titulo', $datos[titulo], 'string'),
+        array('eliminado', false, 'bit'));
     
     $cn = conectar();
     $cn->consulta("
-        INSERT INTO propiedades (tipo, operacion, barrio_id, precio, mts2, habitaciones, banios, garage, texto) 
-        VALUES  ( :tipo, :operaciones, :barrio_id, :precio, :mts2, :habitaciones, :banios, :garage, :texto);
-       ", $sqlParametros);
+        INSERT INTO propiedades (id, tipo, operacion, barrio_id, precio, mts2, habitaciones, banios, garage, texto, titulo, eliminado, motivo_baja_id) 
+        VALUES (NULL, :tipo, :operacion, :barrio_id, :precio, :mts2, :habitaciones, :banios, :garage, :texto, :titulo, :eliminado, NULL)", $sqlParametros);
+    
+    
+    $id = $cn->ultimoIdInsert();
+    
     $cn->desconectar();
+    
+    return $id;
 }
